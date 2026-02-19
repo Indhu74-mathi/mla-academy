@@ -15,7 +15,24 @@ body{
 	font-family: 'Oswald', sans-serif;
 }
 
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 80px; /* navbar height */
+}
+
+/* section {
+	padding: 100px 0;
+} */
+
 /*Header*/
+
+header .nav ul li a.active {
+	color: #c11325;
+	font-weight: 600;
+}
+header.sticky {
+	box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
 
 header{
 	position:fixed;

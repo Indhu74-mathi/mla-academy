@@ -23,29 +23,30 @@
 <body>
 
 	<!-- Start Header  -->
-	<header>
-		<div class="container">
-			<div class="logo">
-				<img src="images/logo.png" alt="MLA Academy Logo" srcset="">
-				<!-- <a href="">MLA <span>Academy</span></a> -->
-			</div>
-			<a href="javascript:void(0)" class="ham-burger">
-				<span></span>
-				<span></span>
-			</a>
-			<div class="nav">
-				<ul>
-					<li><a href="#home">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#program">Programs</a></li>
-					<li><a href="#service">Services</a></li>
-					<li><a href="#gallery">Gallery</a></li>
-					\ <li><a href="#camps">Camps</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</div>
+<header id="navbar">
+	<div class="container">
+		<div class="logo">
+			<img src="images/logo.png" alt="MLA Academy Logo">
 		</div>
-	</header>
+
+		<a href="javascript:void(0)" class="ham-burger">
+			<span></span>
+			<span></span>
+		</a>
+
+		<div class="nav">
+			<ul>
+				<li><a href="#home" class="nav-link active">Home</a></li>
+				<li><a href="#about" class="nav-link">About</a></li>
+				<li><a href="#program" class="nav-link">Programs</a></li>
+				<li><a href="#service" class="nav-link">Services</a></li>
+				<li><a href="#gallery" class="nav-link">Gallery</a></li>
+				<li><a href="#camps" class="nav-link">Camps</a></li>
+				<li><a href="#contact" class="nav-link">Contact</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
 	<!-- End Header  -->
 
 	<!-- Start Home -->
@@ -605,45 +606,49 @@
 	</script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script>
-		$(document).ready(function () {
+<script>
 
-			$(".ham-burger, .nav ul li a").click(function () {
+// Hamburger toggle
+const ham = document.querySelector(".ham-burger");
+const nav = document.querySelector(".nav");
 
-				$(".nav").toggleClass("open")
+ham.addEventListener("click", function(){
+	ham.classList.toggle("active");
+	nav.classList.toggle("open");
+});
 
-				$(".ham-burger").toggleClass("active");
-			})
-			$(".accordian-container").click(function () {
-				$(".accordian-container").children(".body").slideUp();
-				$(".accordian-container").removeClass("active")
-				$(".accordian-container").children(".head").children("span").removeClass("fa-angle-down").addClass("fa-angle-up")
-				$(this).children(".body").slideDown();
-				$(this).addClass("active")
-				$(this).children(".head").children("span").removeClass("fa-angle-up").addClass("fa-angle-down")
-			})
+// Scroll Active Menu
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav-link");
 
-			$(".nav ul li a, .go-down").click(function (event) {
-				if (this.hash !== "") {
+window.addEventListener("scroll", function() {
 
-					event.preventDefault();
+	let current = "";
 
-					var hash = this.hash;
+	sections.forEach(section => {
+		const sectionTop = section.offsetTop - 100;
+		const sectionHeight = section.clientHeight;
 
-					$('html,body').animate({
-						scrollTop: $(hash).offset().top
-					}, 800, function () {
-						window.location.hash = hash;
-					});
+		if(pageYOffset >= sectionTop) {
+			current = section.getAttribute("id");
+		}
+	});
 
-					// add active class in navigation
-					$(".nav ul li a").removeClass("active")
-					$(this).addClass("active")
-				}
-			})
-		})
+	navLinks.forEach(link => {
+		link.classList.remove("active");
+		if(link.getAttribute("href") === "#" + current) {
+			link.classList.add("active");
+		}
+	});
+});
 
-	</script>
+// Sticky shadow
+window.addEventListener("scroll", function() {
+	const header = document.getElementById("navbar");
+	header.classList.toggle("sticky", window.scrollY > 50);
+});
+
+</script>
 	<script src="js/wow.min.js"></script>
 	<script>
 		wow = new WOW(
